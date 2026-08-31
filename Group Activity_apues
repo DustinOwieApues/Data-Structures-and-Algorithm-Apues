@@ -1,0 +1,219 @@
+# Group Activity- Python Array Operations Program
+
+def display_list(arr):
+    if not arr:
+        print("List is empty.")
+    else:
+        print("Current list:", arr)
+
+
+def find_largest(arr):
+    if not arr:
+        print("List is empty. Cannot find largest.")
+        return
+    print("Largest value:", max(arr))
+
+
+def find_smallest(arr):
+    if not arr:
+        print("List is empty. Cannot find smallest.")
+        return
+    print("Smallest value:", min(arr))
+
+
+def calculate_average(arr):
+    if not arr:
+        print("List is empty. Cannot calculate average.")
+        return
+    avg = sum(arr) / len(arr)
+    print(f"Average: {avg:.2f}")
+
+
+def update_element(arr):
+    if not arr:
+        print("List is empty.")
+        return
+    display_list(arr)
+    try:
+        index = int(input("Enter the index of the element to update: "))
+        if 0 <= index < len(arr):
+            new_value = int(input("Enter the new value: "))
+            arr[index] = new_value
+            print("Element updated successfully.")
+            display_list(arr)
+        else:
+            print("Invalid index.")
+    except ValueError:
+        print("Invalid input. Please enter integers only.")
+
+
+def insert_element(arr):
+    try:
+        value = int(input("Enter the value to insert: "))
+        position = input("Enter position (index) to insert at (or press Enter to add at the end): ")
+        if position.strip() == "":
+            arr.append(value)
+        else:
+            pos = int(position)
+            if 0 <= pos <= len(arr):
+                arr.insert(pos, value)
+            else:
+                print("Invalid position. Adding at the end instead.")
+                arr.append(value)
+        print("Element inserted successfully.")
+        display_list(arr)
+    except ValueError:
+        print("Invalid input. Please enter integers only.")
+
+
+def delete_element(arr):
+    if not arr:
+        print("List is empty.")
+        return
+    display_list(arr)
+    try:
+        choice = input("Delete by (1) Index or (2) Value? Enter 1 or 2: ")
+        if choice == "1":
+            index = int(input("Enter the index to delete: "))
+            if 0 <= index < len(arr):
+                deleted = arr.pop(index)
+                print(f"Deleted value: {deleted}")
+                display_list(arr)
+            else:
+                print("Invalid index.")
+        elif choice == "2":
+            value = int(input("Enter the value to delete: "))
+            if value in arr:
+                arr.remove(value)
+                print(f"Deleted value: {value}")
+                display_list(arr)
+            else:
+                print("Value not found in the list.")
+        else:
+            print("Invalid choice.")
+    except ValueError:
+        print("Invalid input. Please enter integers only.")
+
+
+def linear_search(arr):
+    if not arr:
+        print("List is empty.")
+        return
+    try:
+        key = int(input("Enter the value to search (Linear Search): "))
+        found = False
+        for i in range(len(arr)):
+            if arr[i] == key:
+                print(f"Value {key} found at index {i}")
+                found = True
+                break
+        if not found:
+            print(f"Value {key} not found.")
+    except ValueError:
+        print("Invalid input. Please enter an integer.")
+
+
+def sort_list(arr):
+    if not arr:
+        print("List is empty.")
+        return
+    arr.sort()
+    print("List sorted successfully.")
+    display_list(arr)
+
+
+def binary_search(arr):
+    if not arr:
+        print("List is empty.")
+        return
+
+    # Binary search requires a sorted list
+    sorted_arr = sorted(arr)
+    print("Note: Binary search works on a sorted version of the list.")
+    print("Sorted list for searching:", sorted_arr)
+
+    try:
+        key = int(input("Enter the value to search (Binary Search): "))
+        low = 0
+        high = len(sorted_arr) - 1
+        found = False
+
+        while low <= high:
+            mid = (low + high) // 2
+            if sorted_arr[mid] == key:
+                print(f"Value {key} found at index {mid} (in the sorted list)")
+                found = True
+                break
+            elif sorted_arr[mid] < key:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        if not found:
+            print(f"Value {key} not found.")
+    except ValueError:
+        print("Invalid input. Please enter an integer.")
+
+
+def main():
+    arr = []  # Creates a list of integers
+
+    print("===== Python Array / List Operations Program =====")
+
+    # Allow the user to enter initial values
+    try:
+        n = int(input("How many initial values do you want to enter? "))
+        for i in range(n):
+            value = int(input(f"Enter value {i + 1}: "))
+            arr.append(value)
+        print("Initial list created successfully.")
+        display_list(arr)
+    except ValueError:
+        print("Invalid input. Starting with an empty list.")
+
+    while True:
+        print("\n========== MENU ==========")
+        print("1. Display all elements")
+        print("2. Find largest value")
+        print("3. Find smallest value")
+        print("4. Calculate average")
+        print("5. Update an element")
+        print("6. Insert a new element")
+        print("7. Delete an element")
+        print("8. Linear Search")
+        print("9. Sort the list")
+        print("10. Binary Search")
+        print("11. Exit")
+        print("==========================")
+
+        choice = input("Enter your choice (1-11): ")
+
+        if choice == "1":
+            display_list(arr)
+        elif choice == "2":
+            find_largest(arr)
+        elif choice == "3":
+            find_smallest(arr)
+        elif choice == "4":
+            calculate_average(arr)
+        elif choice == "5":
+            update_element(arr)
+        elif choice == "6":
+            insert_element(arr)
+        elif choice == "7":
+            delete_element(arr)
+        elif choice == "8":
+            linear_search(arr)
+        elif choice == "9":
+            sort_list(arr)
+        elif choice == "10":
+            binary_search(arr)
+        elif choice == "11":
+            print("Thank you! Program ended.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
